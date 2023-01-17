@@ -12,6 +12,10 @@ app.get("/", async () => {
   return habits;
 });
 
-app.listen({
-  port: 3000,
-});
+app
+  .listen({
+    port: 3000,
+  })
+  .then(() => {
+    console.log("Server is running port 3000");
+  });
