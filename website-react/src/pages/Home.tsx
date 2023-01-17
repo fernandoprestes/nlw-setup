@@ -1,7 +1,9 @@
-export const Home = function PageHome() {
+import { Habit } from '~/components/Habit';
+
+export const Home = function HomePage() {
   return (
     <main>
-      <div></div>
+      <Habit completed={3} />
     </main>
   );
 };
