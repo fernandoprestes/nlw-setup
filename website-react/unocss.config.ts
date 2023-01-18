@@ -8,6 +8,11 @@ export default defineConfig({
     container: {
       center: true,
     },
+    extends: {
+      gridTemplateRows: {
+        7: 'repeat(7, minmax(0,1fr))',
+      },
+    },
   },
 
   transformers: [transformerVariantGroup()],
