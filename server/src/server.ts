@@ -10,6 +10,7 @@ app.register(AppRoutes);
 app
   .listen({
     port: 3000,
+    host: "0.0.0.0",
   })
   .then(() => {
     console.log("Server is running port 3000");
