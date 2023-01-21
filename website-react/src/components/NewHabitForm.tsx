@@ -1,5 +1,6 @@
 import * as Checkbox from '@radix-ui/react-checkbox';
 import { FormEvent, useState } from 'react';
+import { api } from '~/lib/axios';
 
 const AVALIABLE_WEEK_DAYS = [
   'Domingo',
@@ -15,8 +16,18 @@ export function NewHabitForm() {
   const [title, setTitle] = useState('');
   const [weekDays, setWeekDays] = useState<number[]>([]);
 
-  function createNewHabit(event: FormEvent) {
+  async function createNewHabit(event: FormEvent) {
     event.preventDefault();
+
+    if (!title || weekDays.length === 0) return;
+
+    await api.post('habits', {
+      title,
+      weekDays,
+    });
+    setTitle('');
+    setWeekDays([]);
+    alert('Hábito criado com sucesso!');
   }
 
   function handleToggleWeekDay(weekDay: number) {
@@ -45,6 +56,7 @@ export function NewHabitForm() {
         id='title'
         placeholder='Fazer alguma coisa, Fazer outra coisa, etc...'
         className='placeholder:(text-zinc-400) mt-3 rounded-lg bg-zinc-800 p-4 text-white'
+        value={title}
         onChange={event => setTitle(event.target.value)}
       />
 
@@ -60,6 +72,7 @@ export function NewHabitForm() {
           <Checkbox.Root
             key={weekDay}
             className='flex items-center gap-3'
+            checked={weekDays.includes(index)}
             onCheckedChange={() => handleToggleWeekDay(index)}
           >
             <div className='flex h-8 w-8 items-center justify-center rounded-lg border-2 border-zinc-800'>
