@@ -4,7 +4,7 @@
 
 Você no controle pra fazer de 2023 seu melhor ano em programação. Construa um projeto, domine novas tecnologias e habilidades e prepare-se para levar seu código, habilidades e carreira para o próximo nível 🚀
 
-![cover-project]('./public/cover-project-habits.png')
+![cover-project](/public/cover-project-habits.png)
 
 ## Tecnologias e ferramentas
 
