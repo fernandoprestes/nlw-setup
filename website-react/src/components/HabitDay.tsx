@@ -1,20 +1,27 @@
 import * as Popover from '@radix-ui/react-popover';
-import * as Checkbox from '@radix-ui/react-checkbox';
 import { ProgressBar } from './ProgressBar';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
+import { HabitDayList } from './HabitDayList';
+import { useState } from 'react';
 
 interface HabitDayProps {
   date: Date;
-  completed?: number;
+  defaultCompleted?: number;
   amount?: number;
 }
 
-export const HabitDay = function HabitDayComponent({ date, completed = 0, amount = 0 }: HabitDayProps) {
+export const HabitDay = function HabitDayComponent({ date, defaultCompleted = 0, amount = 0 }: HabitDayProps) {
+  const [completed, setCompleted] = useState(defaultCompleted);
+
   const completedPercentage = amount > 0 ? Math.round((completed / amount) * 100) : 0;
 
   const dayAndMonth = dayjs(date).format('DD/MM');
   const dayOfWeek = dayjs(date).format('dddd');
+
+  function handleCompletedChange(completed: number) {
+    setCompleted(completed);
+  }
 
   return (
     <Popover.Root>
@@ -36,16 +43,10 @@ export const HabitDay = function HabitDayComponent({ date, completed = 0, amount
 
           <ProgressBar progress={completedPercentage} />
 
-          <div className='mt-6 flex flex-col gap-3'>
-            <Checkbox.Root className=' flex items-center gap-3'>
-              <div className=' flex h-8 w-8 items-center justify-center rounded-lg border-2 border-zinc-800'>
-                <Checkbox.Indicator>
-                  <div className='i-ph-check h-5 w-5' />
-                </Checkbox.Indicator>
-              </div>
-              <span className='text-xl font-semibold leading-tight'>Beber água</span>
-            </Checkbox.Root>
-          </div>
+          <HabitDayList
+            date={date}
+            onCompletedChange={handleCompletedChange}
+          />
 
           <Popover.Arrow
             height={8}
